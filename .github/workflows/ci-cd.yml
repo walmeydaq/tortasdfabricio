@@ -1,0 +1,42 @@
+name: CI-CD Registro de clientes
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  integracion:
+    name: CI - pruebas y build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener el codigo
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Preparar Google Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar pruebas
+        run: npm test -- --watch=false --browsers=ChromeHeadlessNoSandbox
+
+      - name: Generar build
+        run: npm run build -- --base-href /
+
+      - name: Guardar el build compilado
+        uses: actions/upload-artifact@v4
+        with:
+          name: angular-build
+          path: dist/tortasdfabricio/browser
+          if-no-files-found: error

@@ -40,3 +40,26 @@ jobs:
           name: angular-build
           path: dist/tortasdfabricio/browser
           if-no-files-found: error
+
+  entrega:
+    name: CD - despliegue FTP
+    needs: integracion
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el build compilado
+        uses: actions/download-artifact@v4
+        with:
+          name: angular-build
+          path: dist/tortasdfabricio/browser
+
+      - name: Desplegar al servidor por FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: dist/tortasdfabricio/browser/
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}

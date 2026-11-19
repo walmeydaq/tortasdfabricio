@@ -5,8 +5,11 @@
   <form [formGroup]="form" (ngSubmit)="enviar()">
     <label for="nombreCompleto">Nombre completo</label>
     <input id="nombreCompleto" type="text" formControlName="nombreCompleto" />
-    @if (form.get('nombreCompleto')?.touched && form.get('nombreCompleto')?.invalid) {
+    @if (form.get('nombreCompleto')?.touched && form.get('nombreCompleto')?.hasError('required')) {
       <small>El nombre es obligatorio.</small>
+    }
+    @if (form.get('nombreCompleto')?.touched && form.get('nombreCompleto')?.hasError('minlength')) {
+      <small>El nombre debe tener al menos 3 caracteres.</small>
     }
 
     <label for="correo">Correo</label>
@@ -14,11 +17,17 @@
     @if (form.get('correo')?.touched && form.get('correo')?.hasError('required')) {
       <small>El correo es obligatorio.</small>
     }
+    @if (form.get('correo')?.touched && form.get('correo')?.hasError('email')) {
+      <small>Ingrese un correo válido.</small>
+    }
 
     <label for="telefono">Teléfono</label>
     <input id="telefono" type="text" formControlName="telefono" maxlength="9" />
     @if (form.get('telefono')?.touched && form.get('telefono')?.hasError('required')) {
       <small>El teléfono es obligatorio.</small>
+    }
+    @if (form.get('telefono')?.touched && form.get('telefono')?.hasError('pattern')) {
+      <small>El teléfono debe tener 9 dígitos y empezar con 9.</small>
     }
 
     <button type="submit" [disabled]="form.invalid">Registrar cliente</button>

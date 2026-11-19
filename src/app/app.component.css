@@ -1,0 +1,21 @@
+header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: #9b1c3c;
+  color: #fff;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+header a {
+  color: #fff;
+}
+
+header span {
+  margin-left: auto;
+}

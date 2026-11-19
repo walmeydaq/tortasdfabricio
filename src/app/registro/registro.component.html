@@ -1,0 +1,30 @@
+<section class="tarjeta">
+  <h2>Registro de cliente</h2>
+  <p>Tortas D'Fabricio. Complete los datos para registrar al cliente.</p>
+
+  <form [formGroup]="form" (ngSubmit)="enviar()">
+    <label for="nombreCompleto">Nombre completo</label>
+    <input id="nombreCompleto" type="text" formControlName="nombreCompleto" />
+    @if (form.get('nombreCompleto')?.touched && form.get('nombreCompleto')?.invalid) {
+      <small>El nombre es obligatorio.</small>
+    }
+
+    <label for="correo">Correo</label>
+    <input id="correo" type="email" formControlName="correo" />
+    @if (form.get('correo')?.touched && form.get('correo')?.hasError('required')) {
+      <small>El correo es obligatorio.</small>
+    }
+
+    <label for="telefono">Teléfono</label>
+    <input id="telefono" type="text" formControlName="telefono" maxlength="9" />
+    @if (form.get('telefono')?.touched && form.get('telefono')?.hasError('required')) {
+      <small>El teléfono es obligatorio.</small>
+    }
+
+    <button type="submit" [disabled]="form.invalid">Registrar cliente</button>
+  </form>
+
+  @if (enviado) {
+    <p class="ok">Cliente registrado correctamente.</p>
+  }
+</section>

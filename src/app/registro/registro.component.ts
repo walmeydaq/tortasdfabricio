@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -8,6 +8,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
   styleUrl: './registro.component.css'
 })
 export class RegistroComponent {
+  private fb = inject(FormBuilder);
   enviado = false;
 
   form = this.fb.group({
@@ -15,8 +16,6 @@ export class RegistroComponent {
     correo: ['', [Validators.required, Validators.email]],
     telefono: ['', [Validators.required, Validators.pattern(/^9\d{8}$/)]]
   });
-
-  constructor(private fb: FormBuilder) {}
 
   enviar(): void {
     if (this.form.invalid) {

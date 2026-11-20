@@ -52,7 +52,7 @@ describe('RegistroComponent', () => {
     component.form.patchValue({
       nombreCompleto: 'Ana Perez',
       correo: 'ana@tortasfabricio.com',
-      telefono: '987654321'
+      telefono: '12345'
     });
 
     expect(component.form.valid).toBeTrue();

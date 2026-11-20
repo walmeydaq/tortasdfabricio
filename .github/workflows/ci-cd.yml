@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Obtener el codigo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Preparar Node.js
         uses: actions/setup-node@v5
@@ -21,7 +21,7 @@ jobs:
           cache: npm
 
       - name: Preparar Google Chrome
-        uses: browser-actions/setup-chrome@v1
+        uses: browser-actions/setup-chrome@v2
         with:
           chrome-version: stable
 
@@ -35,7 +35,7 @@ jobs:
         run: npm run build -- --base-href /
 
       - name: Guardar el build compilado
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: angular-build
           path: dist/tortasdfabricio/browser
@@ -48,13 +48,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Descargar el build compilado
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: angular-build
           path: dist/tortasdfabricio/browser
 
       - name: Desplegar al servidor por FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}

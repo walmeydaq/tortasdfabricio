@@ -18,7 +18,7 @@
       <small>El correo es obligatorio.</small>
     }
     @if (form.get('correo')?.touched && form.get('correo')?.hasError('email')) {
-      <small>Ingrese un correo válido.</small>
+      <small>Verifique que el correo tenga un formato correcto.</small>
     }
 
     <label for="telefono">Teléfono</label>
